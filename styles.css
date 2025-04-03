@@ -519,14 +519,16 @@
     .content {
       padding: 45px;
     }
-  
-    /* Single-column project list at <=1124px */
-    .project-content-all-cards {
+
+    .about-content-all-cards {
       grid-template-columns: 1fr;
-      gap: 30px; /* Larger gap at mid-range */
     }
   
-    /* Make certain cards full-width on mid screens */
+    .project-content-all-cards {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  
     .education-content-card,
     .about-content-card {
       width: 100%;
@@ -618,8 +620,7 @@
       margin-top: 0;
       min-height: auto;
     }
-  
-    /* Projects in single column at <=768px (gap adjusted) */
+
     .project-content-all-cards {
       gap: 20px;
     }
