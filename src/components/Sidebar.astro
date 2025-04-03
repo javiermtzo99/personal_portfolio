@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import profileImage from '../assets/person-img-1.png';
+---
+
+<div class="sidebar">
+  <Image 
+    src={profileImage} 
+    alt="Profile" 
+    class="profile-image"
+  />
+
+  <div class="sidebar-content">
+    <div class="person-name">
+      <h4>Javier Martinez</h4>
+    </div>
+    <div class="person-profession">
+      <p>Data Scientist/Engineer</p>
+    </div>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/javier-martinez-a8a759146/" target="_blank" rel="noopener noreferrer">  
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="https://github.com/javiermtzo99" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-github"></i>
+      </a>
+    </div>
+    <div class="person-contact">
+      <div class="person-contact-method">
+        <div class="person-contact-method-icon">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <div class="person-contact-method-text">
+          <span>Phone</span>
+          <p>+52 449-904-8658</p>
+        </div>
+      </div>
+      <hr />
+      <div class="person-contact-method">
+        <div class="person-contact-method-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="person-contact-method-text">
+          <span>Email</span>
+          <p>javiermtz99@icloud.com</p>
+        </div>
+      </div>
+      <hr />
+      <div class="person-contact-method">
+        <div class="person-contact-method-icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div class="person-contact-method-text">
+          <span>Location</span>
+          <p>Vancouver, BC, Canada</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

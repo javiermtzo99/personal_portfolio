@@ -1,0 +1,95 @@
+---
+const { currentPath } = Astro.props;
+
+const menuItems = [
+  { path: '/about', icon: 'fa-address-card', text: 'About' },
+  { path: '/education', icon: 'fa-school', text: 'Education' },
+  { path: '/work_experience', icon: 'fa-briefcase', text: 'Work Exp' },
+  { path: '/projects', icon: 'fa-code', text: 'Projects' },
+  { path: '/contact', icon: 'fa-envelope', text: 'Contact' }
+];
+
+function getClassNameFor(path: string) {
+  return currentPath === path ? 'header-section active' : 'header-section';
+}
+
+const getCurrentMenuItem = () => {
+  return menuItems.find(item => item.path === currentPath) || menuItems[0];
+};
+---
+
+<script>
+  let isOpen = false;
+  const dropdown = document.querySelector('.dropdown-menu');
+  const mobileMenuItems = document.querySelector('.mobile-menu-items');
+  const menuArrow = document.querySelector('.menu-arrow i');
+
+  function toggleDropdown() {
+    isOpen = !isOpen;
+    mobileMenuItems?.classList.toggle('show');
+    menuArrow?.classList.replace(
+      `fa-chevron-${isOpen ? 'down' : 'up'}`,
+      `fa-chevron-${isOpen ? 'up' : 'down'}`
+    );
+  }
+
+  dropdown?.addEventListener('click', toggleDropdown);
+</script>
+
+{/* Mobile Header */}
+<div class="mobile-header">
+  <div class="dropdown-menu">
+    <div class="menu-content">
+      <div class="menu-icon">
+        <i class={`fa-solid ${getCurrentMenuItem().icon}`}></i>
+      </div>
+      <div class="menu-text">{getCurrentMenuItem().text}</div>
+    </div>
+    <div class="menu-arrow">
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </div>
+  <div class="mobile-menu-items">
+    {menuItems.map((item) => (
+      <a 
+        href={item.path}
+        class={currentPath === item.path ? 'active' : ''}
+        data-astro-reload={false}
+        data-astro-prefetch
+      >
+        <div class="mobile-menu-item">
+          <i class={`fa-solid ${item.icon}`}></i>
+          <span>{item.text}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>
+
+{/* Desktop Header */}
+<div class="site-header">
+  {menuItems.map((item) => (
+    <a 
+      href={item.path}
+      data-astro-reload={false}
+      data-astro-prefetch
+    >
+      <div class={getClassNameFor(item.path)}>
+        <div class="header-icon">
+          <i class={`fa-solid ${item.icon}`}></i>
+        </div>
+        <p>{item.text}</p>
+      </div>
+    </a>
+  ))}
+</div>
+
+<style>
+  .mobile-menu-items {
+    display: none;
+  }
+  
+  .mobile-menu-items.show {
+    display: block;
+  }
+</style>
