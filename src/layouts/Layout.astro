@@ -1,0 +1,57 @@
+---
+import Sidebar from '../components/Sidebar.jsx';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Javier's Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link 
+      rel="preconnect" 
+      href="https://fonts.gstatic.com" 
+      crossorigin
+    >
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap" 
+      rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- Global CSS -->
+    <!-- If your styles.css is in the project root or /public, reference it like this: -->
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Sidebar (React) -->
+      <Sidebar client:load />
+
+      <!-- Main area -->
+      <div class="main-area">
+        <!-- Header (React) -->
+        <Header client:load />
+
+        <!-- Page Content (slot) -->
+        <div class="content">
+          <slot />
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer (React) -->
+    <Footer client:load />
+  </body>
+</html>
