@@ -14,8 +14,12 @@ export default function Sidebar() {
           <p>Data Scientist/Engineer</p>
         </div>
         <div className="social-links">
-          <i className="fa-brands fa-linkedin-in"></i>
-          <i className="fa-brands fa-github"></i>
+          <a href="https://www.linkedin.com/in/javier-martinez-a8a759146/" target="_blank" rel="noopener noreferrer">  
+            <i className="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/javiermtzo99" target="_blank" rel="noopener noreferrer">
+            <i className="fa-brands fa-github"></i>
+          </a>
         </div>
         <div className="person-contact">
           <div className="person-contact-method">
