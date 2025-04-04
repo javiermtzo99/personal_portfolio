@@ -131,7 +131,7 @@
     margin-top: -20px;
     overflow-y: auto;
   }
-  
+
   /* Mobile header: hidden by default for large screens */
   .mobile-header {
     display: none;
@@ -235,10 +235,10 @@
   .person-cv {
     padding: 20px;
     background: linear-gradient(97deg, #E8A222 0%, #BE294D 100%);
-    border-radius: 15px;
+    border-radius: 12px;
     width: 50%;
     text-align: center;
-    margin: 20px auto;
+    margin: 35px auto;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
@@ -544,7 +544,7 @@
   ------------------------------------------------------ */
   @media (max-width: 768px) {
     html, body {
-      overflow: scroll;
+      overflow: visible;
     }
     .site-header {
       display: none;
@@ -606,6 +606,8 @@
     }
 
     .mobile-menu-items {
+      display: none;
+
       position: absolute;
       top: 100%;
       left: 0;
@@ -626,6 +628,10 @@
     }
 
     .mobile-menu-items a {
+      display: block;
+    }
+
+    .mobile-menu-items.show {
       display: block;
     }
 
@@ -666,6 +672,8 @@
       width: 100%;
       margin-top: 0;
       min-height: auto;
+      overflow-y: visible;
+      padding: 30px;
     }
 
     .project-content-all-cards {
