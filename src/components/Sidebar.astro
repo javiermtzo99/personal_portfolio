@@ -8,6 +8,7 @@ import profileImage from '../assets/person-img-1.png';
     src={profileImage} 
     alt="Profile" 
     class="profile-image"
+    loading="eager"
   />
 
   <div class="sidebar-content">
@@ -18,11 +19,13 @@ import profileImage from '../assets/person-img-1.png';
       <p>Data Scientist/Engineer</p>
     </div>
     <div class="social-links">
-      <a href="https://www.linkedin.com/in/javier-martinez-a8a759146/" target="_blank" rel="noopener noreferrer">  
-        <i class="fa-brands fa-linkedin-in"></i>
+      <a href="https://www.linkedin.com/in/javier-martinez-a8a759146/" target="_blank" rel="noopener noreferrer" title="Javier Martinez LinkedIn">  
+        <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+        <span class="sr-only">LinkedIn</span>
       </a>
-      <a href="https://github.com/javiermtzo99" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-github"></i>
+      <a href="https://github.com/javiermtzo99" target="_blank" rel="noopener noreferrer" title="Javier Martinez GitHub">  
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+        <span class="sr-only">GitHub</span>
       </a>
     </div>
     <div class="person-contact">
