@@ -36,12 +36,12 @@ const { pathname } = Astro.url;
 
   <body>
     <div class="container">
-      <!-- Sidebar (React) -->
-      <Sidebar client:load />
+      <!-- Sidebar -->
+      <Sidebar />
 
       <!-- Main area -->
       <div class="main-area">
-        <!-- Header (React) -->
+        <!-- Header -->
         <Header currentPath={pathname} />
 
         <!-- Page Content (slot) -->
@@ -55,7 +55,7 @@ const { pathname } = Astro.url;
       </div>
     </div>
 
-    <!-- Footer (React) -->
-    <Footer client:load />
+    <!-- Footer -->
+    <Footer />
   </body>
 </html>
