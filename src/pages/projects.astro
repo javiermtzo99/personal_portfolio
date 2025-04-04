@@ -1,31 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Modal from '../components/Modal.astro';
+import personalProjectsContent from '../assets/personal_projects_content.json';
 ---
 
 <Layout>
+  <Modal title="" />
   <div class="projects">
-    <h2>Projects</h2>
+    <h2>Personal Projects</h2>
     <hr />
     <div class="project-content-all-cards">
-      <div class="project-content-card">
-        <div class="card-img">
-          <img src="/smart_search.png" alt="Smart Search" />
-        </div>
-        <div class="project-card-content">
-          <h3>Smart Search</h3>
-          <h4>October, 2024</h4>
-          <p>
-            Smart Search is a semantic search bar feature integrated into 
-            the Canvas Discussion panel...
-          </p>
-          <div class="project-categories">
-            <span class="category category-web">Web Development</span>
-            <span class="category category-ml">Machine Learning</span>
+      {personalProjectsContent.projects.map((project) => (
+        <div class="project-content-card">
+          <div class="card-img">
+            <img src={project.image} alt={project.title} />
+          </div>
+          <div class="project-card-content">
+            <h3>{project.title}</h3>
+            <h4>{project.date}</h4>
+            <p>{project.description}</p>
+            <div class="project-categories">
+              {project.categories.map((category) => (
+                <span class={`category ${category.class}`}>{category.name}</span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- Add more project-content-card blocks as needed -->
+      ))}
     </div>
   </div>
 </Layout>
