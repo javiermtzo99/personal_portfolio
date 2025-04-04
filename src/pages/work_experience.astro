@@ -1,21 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Modal from '../components/Modal.astro';
+import workExperienceContent from '../assets/work_experience_content.json';
 ---
 
 <Layout>
+  <Modal title="" />
   <div class="work-exp">
     <h2>Work Experience</h2>
     <hr />
-    <div class="timeline-card">
-      <div class="card-icon">
-        <img src="/kuona.svg" alt="Kuona Logo">
+    {workExperienceContent.work_experience.map((work) => (
+      <div class="timeline-card">
+        <div class="card-icon">
+          <img src={work.logo} alt={`${work.company} Logo`}>
+        </div>
+        <div class="card-content">
+          <h4>{work.company}</h4>
+          <h3>{work.position}</h3>
+          <h5>{work.period}</h5>
+          <p>{work.type}</p>
+        </div>
       </div>
-      <div class="card-content">
-        <h4>Kuona</h4>
-        <h3>Data Engineer</h3>
-        <h5>June 2022 - August 2024</h5>
-        <p>Full time</p>
-      </div>
-    </div>
+    ))}
   </div>
 </Layout>
