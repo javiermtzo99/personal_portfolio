@@ -518,6 +518,58 @@
     padding: 20px;
     color: #a6a6a6;
   }
+
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .modal {
+    background-color: #1F1F1F;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 800px;
+    height: 600px;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #373A3E;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #a6a6a6;
+    transition: color 0.3s ease;
+  }
+
+  .close-button:hover {
+    color: #E8A222;
+  }
+
+  .hidden {
+    display: none;
+  }
   
   .footer p {
     margin: 0;
@@ -528,6 +580,12 @@
      2) Medium devices (<= 1124px)
   ------------------------------------------------------ */
   @media (max-width: 1124px) {
+    .modal {
+      width: 600px;
+      height: 500px;
+      margin: 20px;
+    }
+
     .site-header {
       width: 100%;
       justify-self: center;
@@ -563,6 +621,18 @@
      3) Small devices (<= 768px)
   ------------------------------------------------------ */
   @media (max-width: 768px) {
+    .modal {
+      width: 90%;
+      height: 80vh;
+      margin: 15px;
+      padding: 1.5rem;
+    }
+
+    .modal-header {
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
     html, body {
       overflow: visible;
     }
@@ -597,7 +667,7 @@
       width: 75%;
       margin: 0 auto;
       position: relative;
-      z-index: 1000;
+      z-index: 5;
     }
 
     .dropdown-menu {
@@ -627,7 +697,6 @@
 
     .mobile-menu-items {
       display: none;
-
       position: absolute;
       top: 100%;
       left: 0;
@@ -636,6 +705,7 @@
       border-radius: 0 0 5px 5px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
     }
 
     .mobile-menu-item {

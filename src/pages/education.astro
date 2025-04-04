@@ -1,32 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Modal from '../components/Modal.astro';
+import educationContent from '../assets/education_content.json';
 ---
 
 <Layout>
+  <Modal title="" />
   <div class="education">
     <h2>Education</h2>
     <hr />
-    <div class="timeline-card">
-      <div class="card-icon">
-        <img src="/ubc.svg" alt="UBC Logo">
+    {educationContent.education.map((edu) => (
+      <div class="timeline-card">
+        <div class="card-icon">
+          <img src={edu.logo} alt={`${edu.school} Logo`}>
+        </div>
+        <div class="card-content">
+          <h4>{edu.degree}</h4>
+          <h3>{edu.school}</h3>
+          {edu.minor && <h5>Minor in {edu.minor}</h5>}
+          <p>{edu.location}</p>
+        </div>
       </div>
-      <div class="card-content">
-        <h4>Master's in Data Science</h4>
-        <h3>University of British Columbia</h3>
-        <p>Vancouver, BC, Canada</p>
-      </div>
-    </div>
-
-    <div class="timeline-card">
-      <div class="card-icon">
-        <img src="/tec.svg" alt="TEC Logo">
-      </div>
-      <div class="card-content">
-        <h4>Bachelor's in Computer Science and Engineering</h4>
-        <h3>ITESM</h3>
-        <h5>Minor in Data Science</h5>
-        <p>Monterrey, NL, Mexico</p>
-      </div>
-    </div>
+    ))}
   </div>
 </Layout>

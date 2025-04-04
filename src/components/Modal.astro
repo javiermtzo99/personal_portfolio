@@ -1,0 +1,100 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div id="modal-overlay" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>{title}</h2>
+      <button class="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupModal() {
+    const modalOverlay = document.getElementById('modal-overlay');
+    const closeButton = modalOverlay?.querySelector('.close-button');
+    const timelineCards = document.querySelectorAll('.timeline-card');
+    const projectCards = document.querySelectorAll('.project-content-card');
+    const mobileHeader = document.querySelector('.mobile-header') as HTMLElement;
+
+    function openModal(title: string) {
+      if (modalOverlay) {
+        const modalTitle = modalOverlay.querySelector('h2');
+        if (modalTitle) {
+          modalTitle.textContent = title;
+        }
+        modalOverlay.classList.remove('hidden');
+        if (mobileHeader) {
+          mobileHeader.style.display = 'none';
+        }
+      }
+    }
+
+    function closeModal() {
+      modalOverlay?.classList.add('hidden');
+      if (mobileHeader && window.innerWidth <= 768) {
+        mobileHeader.style.display = 'flex';
+      }
+    }
+
+    // Add click event listeners to timeline cards
+    timelineCards.forEach((card, index) => {
+      if (!card.id) {
+        card.id = `timeline-card-${index}`;
+      }
+      card.addEventListener('click', () => {
+        const title = card.querySelector('h3')?.textContent || 'Timeline Item';
+        openModal(title);
+      });
+    });
+
+    // Add click event listeners to project cards
+    projectCards.forEach((card, index) => {
+      if (!card.id) {
+        card.id = `project-card-${index}`;
+      }
+      card.addEventListener('click', () => {
+        const title = card.querySelector('h3')?.textContent || 'Project Item';
+        openModal(title);
+      });
+    });
+
+    // Close modal when clicking outside
+    modalOverlay?.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    // Close modal when clicking the close button
+    closeButton?.addEventListener('click', closeModal);
+  }
+
+  // Run setup when the DOM is loaded
+  document.addEventListener('DOMContentLoaded', setupModal);
+  // Run setup when document is loaded through Astro's view transitions
+  document.addEventListener('astro:page-load', setupModal);
+
+  // Handle resize events
+  window.addEventListener('resize', () => {
+    const mobileHeader = document.querySelector('.mobile-header') as HTMLElement;
+    if (mobileHeader) {
+      if (window.innerWidth > 768) {
+        mobileHeader.style.display = 'none';
+      } else {
+        const modalOverlay = document.getElementById('modal-overlay');
+        if (modalOverlay?.classList.contains('hidden')) {
+          mobileHeader.style.display = 'flex';
+        }
+      }
+    }
+  });
+</script>

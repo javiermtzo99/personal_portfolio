@@ -1,0 +1,18 @@
+{
+  "education": [
+    {
+      "degree": "Master's in Data Science",
+      "school": "University of British Columbia",
+      "minor": "",
+      "location": "Vancouver, BC, Canada",
+      "logo": "/ubc.svg"
+    },
+    {
+      "degree": "Bachelor's in Computer Science and Engineering",
+      "school": "ITESM",
+      "minor": "Data Science",
+      "location": "Monterrey, NL, Mexico",
+      "logo": "/tec.svg"
+    }
+  ]
+}
