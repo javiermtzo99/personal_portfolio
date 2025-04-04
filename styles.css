@@ -310,8 +310,8 @@
     line-height: 1.5;
   }
   
-  /* Education Section */
-  .education-content-card {
+  /* Timeline Cards (Education & Work Experience) */
+  .timeline-card {
     display: grid;
     grid-template-columns: 1fr 5fr;
     gap: 10px;
@@ -326,18 +326,20 @@
     margin-top: 30px;
   }
   
-  .education-content-card:hover {
+  .timeline-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(166, 166, 166, 0.2);
   }
   
-  /* Unified margin for headings/paragraphs inside .education-content-card */
-  .education-content-card h3,
-  .education-content-card p {
+  /* Unified margin for headings/paragraphs inside .timeline-card */
+  .timeline-card h3,
+  .timeline-card h4,
+  .timeline-card h5,
+  .timeline-card p {
     margin: 5px 0;
   }
   
-  .education-content-card .card-icon img {
+  .timeline-card .card-icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -529,7 +531,7 @@
       gap: 30px;
     }
   
-    .education-content-card,
+    .timeline-card,
     .about-content-card {
       width: 100%;
     }
