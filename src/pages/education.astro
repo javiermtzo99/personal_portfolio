@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Modal from '../components/Modal.astro';
-import educationContent from '../assets/education_content.json';
+import { getCollection, type CollectionEntry } from 'astro:content';
+const educationContent: CollectionEntry<'education'>[] = await getCollection('education');
 ---
 
 <Layout>
@@ -9,16 +10,20 @@ import educationContent from '../assets/education_content.json';
   <div class="education">
     <h2>Education</h2>
     <hr />
-    {educationContent.education.map((edu) => (
+    {educationContent.map((entry) => (
+      // 'entry.data' holds frontmatter fields
+      // 'entry.body' holds the markdown body
+      // 'entry.id' or 'entry.slug' for unique key
+
       <div class="timeline-card">
         <div class="card-icon">
-          <img src={edu.logo} alt={`${edu.school} Logo`}>
+          <img src={entry.data.logo} alt={`${entry.data.school} Logo`}>
         </div>
         <div class="card-content">
-          <h4>{edu.degree}</h4>
-          <h3>{edu.school}</h3>
-          {edu.minor && <h5>Minor in {edu.minor}</h5>}
-          <p>{edu.location}</p>
+          <h4>{entry.data.degree}</h4>
+          <h3>{entry.data.school}</h3>
+          {entry.data.minor && <h5>Minor in {entry.data.minor}</h5>}
+          <p>{entry.data.location}</p>
         </div>
       </div>
     ))}

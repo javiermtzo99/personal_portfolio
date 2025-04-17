@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Modal from '../components/Modal.astro';
-import workExperienceContent from '../assets/work_experience_content.json';
+import { getCollection, type CollectionEntry } from 'astro:content';
+const workExperienceContent: CollectionEntry<'work-experience'>[] = await getCollection('work-experience');
 ---
 
 <Layout>
@@ -9,16 +10,20 @@ import workExperienceContent from '../assets/work_experience_content.json';
   <div class="work-exp">
     <h2>Work Experience</h2>
     <hr />
-    {workExperienceContent.work_experience.map((work) => (
+    {workExperienceContent.map((entry) => (
+      // 'entry.data' holds frontmatter fields
+      // 'entry.body' holds the markdown body
+      // 'entry.id' or 'entry.slug' for unique key
+
       <div class="timeline-card">
         <div class="card-icon">
-          <img src={work.logo} alt={`${work.company} Logo`}>
+          <img src={entry.data.logo} alt={`${entry.data.company} Logo`}>
         </div>
         <div class="card-content">
-          <h4>{work.company}</h4>
-          <h3>{work.position}</h3>
-          <h5>{work.period}</h5>
-          <p>{work.type}</p>
+          <h4>{entry.data.company}</h4>
+          <h3>{entry.data.position}</h3>
+          <h5>{entry.data.period}</h5>
+          <p>{entry.data.type}</p>
         </div>
       </div>
     ))}
