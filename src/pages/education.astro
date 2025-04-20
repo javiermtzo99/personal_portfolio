@@ -16,6 +16,9 @@ const entries: Entry[] = await Promise.all(
     return { data: entry.data, Content };
   })
 );
+
+// Sort entries by degree in descending order (Bachelor's comes after Master's)
+entries.sort((a, b) => b.data.degree.localeCompare(a.data.degree));
 ---
 
 <Layout>
