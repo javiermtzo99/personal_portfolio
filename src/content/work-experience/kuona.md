@@ -6,4 +6,4 @@ type: "Full time"
 logo: "/kuona.svg"
 ---
 
-# Empty for now. This will be shown in the modal.
+# Kuona Empty for now. This will be shown in the modal.

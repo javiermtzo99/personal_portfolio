@@ -1,31 +1,51 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Modal from '../components/Modal.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-const educationContent: CollectionEntry<'education'>[] = await getCollection('education');
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Entry {
+  data: CollectionEntry<'education'>['data'];
+  Content: any;
+}
+
+const raw = await getCollection('education');
+const entries: Entry[] = await Promise.all(
+  raw.map(async entry => {
+    const { Content } = await render(entry);
+    return { data: entry.data, Content };
+  })
+);
 ---
 
 <Layout>
+  <!-- single global Modal instance -->
   <Modal title="" />
+
   <div class="education">
     <h2>Education</h2>
     <hr />
-    {educationContent.map((entry) => (
-      // 'entry.data' holds frontmatter fields
-      // 'entry.body' holds the markdown body
-      // 'entry.id' or 'entry.slug' for unique key
 
-      <div class="timeline-card">
-        <div class="card-icon">
-          <img src={entry.data.logo} alt={`${entry.data.school} Logo`}>
+    {entries.map(entry => {
+      const { data, Content } = entry;
+      return (
+        <div class="timeline-card">
+          <!-- hidden MD content for the modal -->
+          <div class="hidden-content" style="display:none;">
+            <Content />
+          </div>
+
+          <div class="card-icon">
+            <img src={data.logo} alt={`${data.school} Logo`} />
+          </div>
+          <div class="card-content">
+            <h4>{data.degree}</h4>
+            <h3>{data.school}</h3>
+            {data.minor && <h5>Minor in {data.minor}</h5>}
+            <p>{data.location}</p>
+          </div>
         </div>
-        <div class="card-content">
-          <h4>{entry.data.degree}</h4>
-          <h3>{entry.data.school}</h3>
-          {entry.data.minor && <h5>Minor in {entry.data.minor}</h5>}
-          <p>{entry.data.location}</p>
-        </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 </Layout>

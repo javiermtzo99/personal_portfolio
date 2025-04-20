@@ -1,8 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Modal from '../components/Modal.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-const personalProjectsContent: CollectionEntry<'personal-projects'>[] = await getCollection('personal-projects');
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Entry {
+  data: CollectionEntry<'personal-projects'>['data'];
+  Content: any;
+}
+
+const raw = await getCollection('personal-projects');
+const entries: Entry[] = await Promise.all(
+  raw.map(async entry => {
+    const { Content } = await render(entry);
+    return { data: entry.data, Content };
+  })
+);
 ---
 
 <Layout>
@@ -11,12 +24,16 @@ const personalProjectsContent: CollectionEntry<'personal-projects'>[] = await ge
     <h2>Personal Projects</h2>
     <hr />
     <div class="project-content-all-cards">
-      {personalProjectsContent.map((entry) => (
+      {entries.map((entry) => (
       // 'entry.data' holds frontmatter fields
       // 'entry.body' holds the markdown body
       // 'entry.id' or 'entry.slug' for unique key
 
         <div class="project-content-card">
+          <!-- hidden MD content for the modal -->
+          <div class="hidden-content" style="display:none;">
+            <entry.Content />
+          </div>
           <div class="card-img">
             <img src={entry.data.image} alt={entry.data.title} />
           </div>

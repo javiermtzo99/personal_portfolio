@@ -10,4 +10,4 @@ categories:
     class: "category-ml"
 ---
 
-# Empty for now. This will be shown in the modal.
+# Smart-SearchEmpty for now. This will be shown in the modal.

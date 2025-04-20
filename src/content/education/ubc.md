@@ -6,4 +6,4 @@ location: "Vancouver, BC, Canada"
 logo: "/ubc.svg"
 ---
 
-# Empty for now. This will be shown in the modal.
+# UBC Empty for now. This will be shown in the modal.

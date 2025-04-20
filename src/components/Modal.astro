@@ -6,95 +6,87 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div id="modal-overlay" class="modal-overlay hidden">
-  <div class="modal">
-    <div class="modal-header">
+<div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <header class="modal-header">
       <h2>{title}</h2>
-      <button class="close-button">
+      <button class="close-button" aria-label="Close modal">
         <i class="fas fa-times"></i>
       </button>
-    </div>
+    </header>
+
+    <!-- Here's where we'll dump our MD-rendered HTML -->
+    <section class="modal-body"></section>
   </div>
 </div>
 
-<script>
+<script type="module" lang="ts">
   function setupModal() {
-    const modalOverlay = document.getElementById('modal-overlay');
-    const closeButton = modalOverlay?.querySelector('.close-button');
+    const overlay = document.getElementById('modal-overlay');
+    const closeBtn = overlay?.querySelector('.close-button');
+    const modalTitle = overlay?.querySelector('h2');
+    const modalBody = overlay?.querySelector('.modal-body');
     const timelineCards = document.querySelectorAll('.timeline-card');
     const projectCards = document.querySelectorAll('.project-content-card');
-    const mobileHeader = document.querySelector('.mobile-header') as HTMLElement;
+    /** @type {HTMLElement | null} */
+    const mobileHeader = document.querySelector('.mobile-header');
 
-    function openModal(title: string) {
-      if (modalOverlay) {
-        const modalTitle = modalOverlay.querySelector('h2');
-        if (modalTitle) {
-          modalTitle.textContent = title;
-        }
-        modalOverlay.classList.remove('hidden');
-        if (mobileHeader) {
-          mobileHeader.style.display = 'none';
-        }
-      }
+    /** @param {string} titleText @param {string} bodyHtml */
+    function openModal(titleText, bodyHtml) {
+      if (!overlay || !modalTitle || !modalBody) return;
+      modalTitle.textContent = titleText;
+      modalBody.innerHTML = bodyHtml;
+      overlay.classList.remove('hidden');
+      if (mobileHeader?.style) mobileHeader.style.display = 'none';
     }
 
     function closeModal() {
-      modalOverlay?.classList.add('hidden');
+      overlay?.classList.add('hidden');
       if (mobileHeader && window.innerWidth <= 768) {
         mobileHeader.style.display = 'flex';
       }
+      // clear out the body so old content doesn’t flash on reopen
+      if (modalBody) modalBody.innerHTML = '';
     }
 
-    // Add click event listeners to timeline cards
-    timelineCards.forEach((card, index) => {
-      if (!card.id) {
-        card.id = `timeline-card-${index}`;
-      }
-      card.addEventListener('click', () => {
-        const title = card.querySelector('h3')?.textContent || 'Timeline Item';
-        openModal(title);
+    /** @param {NodeListOf<Element>} cards */
+    function attachListeners(cards) {
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const title = card.querySelector('h3')?.textContent || '';
+          // grab the hidden-content block you’ll render per‐card
+          /** @type {HTMLElement | null} */
+          const hidden = card.querySelector('.hidden-content');
+          const body = hidden ? hidden.innerHTML : '';
+          openModal(title, body);
+        });
       });
+    }
+
+    attachListeners(timelineCards);
+    attachListeners(projectCards);
+
+    overlay?.addEventListener('click', e => {
+      if (e.target === overlay) closeModal();
     });
+    closeBtn?.addEventListener('click', closeModal);
 
-    // Add click event listeners to project cards
-    projectCards.forEach((card, index) => {
-      if (!card.id) {
-        card.id = `project-card-${index}`;
-      }
-      card.addEventListener('click', () => {
-        const title = card.querySelector('h3')?.textContent || 'Project Item';
-        openModal(title);
-      });
-    });
-
-    // Close modal when clicking outside
-    modalOverlay?.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        closeModal();
-      }
-    });
-
-    // Close modal when clicking the close button
-    closeButton?.addEventListener('click', closeModal);
-  }
-
-  // Run setup when the DOM is loaded
-  document.addEventListener('DOMContentLoaded', setupModal);
-  // Run setup when document is loaded through Astro's view transitions
-  document.addEventListener('astro:page-load', setupModal);
-
-  // Handle resize events
-  window.addEventListener('resize', () => {
-    const mobileHeader = document.querySelector('.mobile-header') as HTMLElement;
-    if (mobileHeader) {
+    /** @param {Event} _ */
+    const handleResize = (_) => {
+      /** @type {HTMLElement | null} */
+      const mobileHeader = document.querySelector('.mobile-header');
+      if (!mobileHeader) return;
+      
       if (window.innerWidth > 768) {
         mobileHeader.style.display = 'none';
-      } else {
-        const modalOverlay = document.getElementById('modal-overlay');
-        if (modalOverlay?.classList.contains('hidden')) {
-          mobileHeader.style.display = 'flex';
-        }
+      } else if (overlay?.classList.contains('hidden')) {
+        mobileHeader.style.display = 'flex';
       }
-    }
-  });
+    };
+
+    window.addEventListener('resize', handleResize);
+  }
+
+  document.addEventListener('DOMContentLoaded', setupModal);
+  document.addEventListener('astro:page-load', setupModal);
 </script>

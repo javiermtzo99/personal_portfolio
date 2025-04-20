@@ -1,8 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Modal from '../components/Modal.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-const workExperienceContent: CollectionEntry<'work-experience'>[] = await getCollection('work-experience');
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Entry {
+  data: CollectionEntry<'work-experience'>['data'];
+  Content: any;
+}
+
+const raw = await getCollection('work-experience');
+const entries: Entry[] = await Promise.all(
+  raw.map(async entry => {
+    const { Content } = await render(entry);
+    return { data: entry.data, Content };
+  })
+);
 ---
 
 <Layout>
@@ -10,12 +23,16 @@ const workExperienceContent: CollectionEntry<'work-experience'>[] = await getCol
   <div class="work-exp">
     <h2>Work Experience</h2>
     <hr />
-    {workExperienceContent.map((entry) => (
+    {entries.map((entry) => (
       // 'entry.data' holds frontmatter fields
       // 'entry.body' holds the markdown body
       // 'entry.id' or 'entry.slug' for unique key
 
       <div class="timeline-card">
+        <!-- hidden MD content for the modal -->
+        <div class="hidden-content" style="display:none;">
+          <entry.Content />
+        </div>
         <div class="card-icon">
           <img src={entry.data.logo} alt={`${entry.data.company} Logo`}>
         </div>

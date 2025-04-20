@@ -6,4 +6,4 @@ location: "Monterrey, NL, Mexico"
 logo: "/tec.svg"
 ---
 
-# Empty for now. This will be shown in the modal.
+# ITESM Empty for now. This will be shown in the modal.
