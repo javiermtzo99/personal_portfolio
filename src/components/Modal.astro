@@ -1,15 +1,23 @@
 ---
 interface Props {
   title: string;
+  icon?: string;
 }
 
-const { title } = Astro.props;
+const { title, icon } = Astro.props;
 ---
 
 <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true">
     <header class="modal-header">
-      <h2>{title}</h2>
+      <div class="header-left">
+        {icon && (
+          <div class="card-icon">
+            <img src={icon} alt="Logo" />
+          </div>
+        )}
+        <h2>{title}</h2>
+      </div>
       <button class="close-button" aria-label="Close modal">
         <i class="fas fa-times"></i>
       </button>
@@ -32,10 +40,22 @@ const { title } = Astro.props;
     const mobileHeader = document.querySelector('.mobile-header');
 
     /** @param {string} titleText @param {string} bodyHtml */
-    function openModal(titleText, bodyHtml) {
+    function openModal(titleText, bodyHtml, iconSrc = '') {
       if (!overlay || !modalTitle || !modalBody) return;
       modalTitle.textContent = titleText;
       modalBody.innerHTML = bodyHtml;
+      
+      // Update icon if present
+      const iconContainer = overlay.querySelector('.card-icon');
+      if (iconContainer) {
+        const iconImg = iconContainer.querySelector('img');
+        if (iconImg && iconSrc) {
+          iconImg.src = iconSrc;
+          iconContainer.style.display = 'block';
+        } else {
+          iconContainer.style.display = 'none';
+        }
+      }
       overlay.classList.remove('hidden');
       if (mobileHeader?.style) mobileHeader.style.display = 'none';
     }
@@ -54,11 +74,11 @@ const { title } = Astro.props;
       cards.forEach(card => {
         card.addEventListener('click', () => {
           const title = card.querySelector('h3')?.textContent || '';
-          // grab the hidden-content block you’ll render per‐card
           /** @type {HTMLElement | null} */
           const hidden = card.querySelector('.hidden-content');
           const body = hidden ? hidden.innerHTML : '';
-          openModal(title, body);
+          const icon = card.querySelector('img')?.src || '';
+          openModal(title, body, icon);
         });
       });
     }

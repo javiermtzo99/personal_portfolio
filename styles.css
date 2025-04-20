@@ -553,6 +553,17 @@
     border-bottom: 1px solid #373A3E;
   }
 
+  .modal-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .modal-header .card-icon img {
+    height: 60px;
+    filter: invert(80%) sepia(0%) saturate(0%) hue-rotate(137deg) brightness(82%) contrast(90%);
+  }
+
   .close-button {
     background: none;
     border: none;
