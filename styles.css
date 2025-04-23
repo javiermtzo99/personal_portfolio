@@ -574,6 +574,20 @@
   .modal-header .card-icon img {
     height: 60px;
     filter: invert(80%) sepia(0%) saturate(0%) hue-rotate(137deg) brightness(82%) contrast(90%);
+    display: none;
+  }
+
+  .modal-header[data-type='work'] .card-icon img,
+  .modal-header[data-type='education'] .card-icon img {
+    display: block;
+  }
+
+  .modal-header .card-icon i {
+    font-size: 2.5rem;
+    background: linear-gradient(97deg, #E8A222 0%, #BE294D 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .close-button {
