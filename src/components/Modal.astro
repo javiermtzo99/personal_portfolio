@@ -36,11 +36,12 @@ const { title, icon } = Astro.props;
     const modalBody = overlay?.querySelector('.modal-body');
     const timelineCards = document.querySelectorAll('.timeline-card');
     const projectCards = document.querySelectorAll('.project-content-card');
+    const aboutCards = document.querySelectorAll('.about-content-card');
     /** @type {HTMLElement | null} */
     const mobileHeader = document.querySelector('.mobile-header');
 
-    /** @param {string} titleText @param {string} bodyHtml */
-    function openModal(titleText, bodyHtml, iconSrc = '') {
+    /** @param {string} titleText @param {string} bodyHtml @param {string} iconClass */
+    function openModal(titleText, bodyHtml, iconClass = '') {
       if (!overlay || !modalTitle || !modalBody) return;
       modalTitle.textContent = titleText;
       modalBody.innerHTML = bodyHtml;
@@ -48,9 +49,12 @@ const { title, icon } = Astro.props;
       // Update icon if present
       const iconContainer = overlay.querySelector('.card-icon');
       if (iconContainer) {
-        const iconImg = iconContainer.querySelector('img');
-        if (iconImg && iconSrc) {
-          iconImg.src = iconSrc;
+        // Handle both image and font-awesome icons
+        if (iconClass.startsWith('fas ')) {
+          iconContainer.innerHTML = `<i class="${iconClass}"></i>`;
+          iconContainer.style.display = 'block';
+        } else if (iconClass) {
+          iconContainer.innerHTML = `<img src="${iconClass}" alt="${titleText}" />`;
           iconContainer.style.display = 'block';
         } else {
           iconContainer.style.display = 'none';
@@ -69,15 +73,22 @@ const { title, icon } = Astro.props;
       if (modalBody) modalBody.innerHTML = '';
     }
 
-    /** @param {NodeListOf<Element>} cards */
-    function attachListeners(cards) {
+    /** @param {NodeListOf<Element>} cards @param {string} titleSelector @param {boolean} useIconClass */
+    function attachListeners(cards, titleSelector = 'h3', useIconClass = false) {
       cards.forEach(card => {
         card.addEventListener('click', () => {
-          const title = card.querySelector('h3')?.textContent || '';
+          const title = card.querySelector(titleSelector)?.textContent || '';
           /** @type {HTMLElement | null} */
           const hidden = card.querySelector('.hidden-content');
           const body = hidden ? hidden.innerHTML : '';
-          const icon = card.querySelector('img')?.src || '';
+          
+          let icon = '';
+          if (useIconClass) {
+            icon = card.querySelector('i')?.className || '';
+          } else {
+            icon = card.querySelector('img')?.src || '';
+          }
+          
           openModal(title, body, icon);
         });
       });
@@ -85,6 +96,7 @@ const { title, icon } = Astro.props;
 
     attachListeners(timelineCards);
     attachListeners(projectCards);
+    attachListeners(aboutCards, 'h4', true); // Use h4 for title and font-awesome icons
 
     overlay?.addEventListener('click', e => {
       if (e.target === overlay) closeModal();
