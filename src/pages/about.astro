@@ -33,17 +33,24 @@ entries.sort((a, b) => a.data.order - b.data.order);
       </p>
       <h3>What I do!</h3>
       <div class="about-content-all-cards">
-        {entries.map((entry) => (
-          <div class="about-content-card">
-            <div class="card-icon">
-              <i class={entry.data.icon}></i>
+        {entries.map(entry => {
+          const { data, Content } = entry;
+          return (
+            <div class="about-content-card">
+              <!-- hidden MD content for the modal -->
+              <div class="hidden-content" style="display:none;">
+                <Content />
+              </div>
+              <div class="card-icon">
+                <i class={data.icon}></i>
+              </div>
+              <div class="card-content">
+                <h4>{data.title}</h4>
+                <p>{data.short}</p>
+              </div>
             </div>
-            <div class="card-content">
-              <h4>{entry.data.title}</h4>
-              <p>{entry.data.short}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </div>
