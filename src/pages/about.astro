@@ -1,8 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Modal from '../components/Modal.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Entry {
+  data: CollectionEntry<'about'>['data'];
+  Content: any;
+}
+
+const raw = await getCollection('about');
+const entries: Entry[] = await Promise.all(
+  raw.map(async entry => {
+    const { Content } = await render(entry);
+    return { data: entry.data, Content };
+  })
+);
+
+// Sort entries by order in ascending order
+entries.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Layout>
+  <!-- single global Modal instance -->
+  <Modal title="" icon={entries[0]?.data.logo} />
   <div class="about">
     <div class="about-content">
       <h2>About</h2>
@@ -10,45 +31,18 @@ import Layout from '../layouts/Layout.astro';
       <p>
         I am a data professional living in Vancouver, BC, with over two-year experience as a Data Engineer in the retail industry, focused on designing and building data-driven software solutions. I am currently completing my Master's Degree in Data Science and will be available for full-time work starting July 2025.
       </p>
-
       <h3>What I do!</h3>
       <div class="about-content-all-cards">
-        <div class="about-content-card">
-          <div class="card-icon">
-            <i class="fas fa-database"></i>
+        {entries.map((entry) => (
+          <div class="about-content-card">
+            <div class="card-icon">
+              <i class={entry.data.icon}></i>
+            </div>
+            <div class="card-content">
+              <h4>{entry.data.title}</h4>
+            </div>
           </div>
-          <div class="card-content">
-            <h4>Data Engineering</h4>
-            <p>Building responsive and modern data pipelines and workflows.</p>
-          </div>
-        </div>
-        <div class="about-content-card">
-          <div class="card-icon">
-            <i class="fas fa-flask"></i>
-          </div>
-          <div class="card-content">
-            <h4>Machine Learning</h4>
-            <p>Designing data models, predictive analyses, and ML solutions.</p>
-          </div>
-        </div>
-        <div class="about-content-card">
-          <div class="card-icon">
-            <i class="fas fa-sitemap"></i>
-          </div>
-          <div class="card-content">
-            <h4>Data Architecture</h4>
-            <p>Planning and structuring data solutions for scalability.</p>
-          </div>
-        </div>
-        <div class="about-content-card">
-          <div class="card-icon">
-            <i class="fas fa-code"></i>
-          </div>
-          <div class="card-content">
-            <h4>Software Engineering</h4>
-            <p>Building responsive and modern web applications using best practices.</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </div>

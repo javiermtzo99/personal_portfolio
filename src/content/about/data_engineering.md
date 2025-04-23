@@ -1,6 +1,7 @@
 ---
 title: Data Engineering
-icon: /icons/database.svg
+order: 1
+icon: fas fa-database
 ---
 
 Building responsive, scalable data pipelines using PySpark, orchestrating workflows with Airflow, and processing real-time data streams with Kafka. Experienced in distributed computing and optimizing ETL processes.
