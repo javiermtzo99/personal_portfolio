@@ -88,13 +88,15 @@ const ModalContent: React.FC = () => {
       <div className="modal">
         <div className="modal-header" data-type={data.type}>
           <div className="header-left">
-            <div className="card-icon">
-              {data.iconClass.startsWith('http') ? (
-                <img src={data.iconClass} alt="Icon" />
-              ) : (
-                <i className={data.iconClass}></i>
-              )}
-            </div>
+            {data.type !== 'project' && (
+              <div className="card-icon">
+                {data.iconClass.startsWith('http') ? (
+                  <img src={data.iconClass} alt="Icon" />
+                ) : (
+                  <i className={data.iconClass}></i>
+                )}
+              </div>
+            )}
             <h2>{data.title}</h2>
           </div>
           <button className="close-button" onClick={() => setOpen(false)}>&times;</button>
