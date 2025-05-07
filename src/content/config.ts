@@ -35,8 +35,18 @@ const personalProjects = defineCollection({
   }),
 });
 
+const about = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    order: z.number(),
+    icon: z.string(),
+    short: z.string(),
+  }),
+});
+
 export const collections = {
   'education': education,
+  'about': about,
   'work-experience': workExperience,
   'personal-projects': personalProjects,
 };

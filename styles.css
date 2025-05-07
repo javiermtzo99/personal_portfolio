@@ -318,8 +318,8 @@
     justify-content: center;
     align-items: center;
     background-color: #1F1F1F;
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
     border-radius: 12px;
   }
   
@@ -474,8 +474,9 @@
   
   .form-group label {
     display: block;
-    margin-bottom: 8px;
-    color: #fff;
+    margin-bottom: 5px;
+    color: #a6a6a6;
+    font-family: "Roboto Slab", serif;
     font-size: 16px;
   }
   
@@ -483,11 +484,12 @@
   .form-group textarea {
     width: 100%;
     padding: 12px;
-    background: #373A3E;
-    border: 1px solid #a6a6a6;
-    border-radius: 8px;
+    border: 1px solid #373A3E;
+    border-radius: 5px;
+    background-color: #1F1F1F;
     color: #fff;
-    font-size: 14px;
+    margin-bottom: 8px;
+    font-family: "Roboto Slab", serif;
     transition: all 0.3s ease;
   }
   
@@ -506,6 +508,7 @@
   .form-group input::placeholder,
   .form-group textarea::placeholder {
     color: #a6a6a6;
+    font-family: "Roboto Slab", serif;
   }
   
   .contact-form button {
@@ -584,10 +587,7 @@
 
   .modal-header .card-icon i {
     font-size: 2.5rem;
-    background: linear-gradient(97deg, #E8A222 0%, #BE294D 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #a6a6a6;
   }
 
   .close-button {

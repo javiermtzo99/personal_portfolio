@@ -7,3 +7,5 @@ logo: "/ubc.svg"
 ---
 
 # UBC Empty for now. This will be shown in the modal.
+
+Started in Fall 2024
