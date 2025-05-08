@@ -12,7 +12,12 @@ const menuItems = [
 function getClassNameFor(path: string) {
   // Check if the current path starts with the menu item path
   // This handles both exact matches and dynamic routes like /work_experience/[id]
-  if (path === '/work_experience' && currentPath.startsWith('/work_experience/')) {
+  if (
+    (path === '/work_experience' && currentPath.startsWith('/work_experience/')) ||
+    (path === '/education' && currentPath.startsWith('/education/')) ||
+    (path === '/about' && currentPath.startsWith('/about/')) ||
+    (path === '/projects' && currentPath.startsWith('/projects/'))
+  ) {
     return 'header-section active';
   }
   
@@ -28,6 +33,15 @@ const getCurrentMenuItem = () => {
   // Check for dynamic routes
   if (currentPath.startsWith('/work_experience/')) {
     return menuItems.find(item => item.path === '/work_experience');
+  }
+  if (currentPath.startsWith('/education/')) {
+    return menuItems.find(item => item.path === '/education');
+  }
+  if (currentPath.startsWith('/about/')) {
+    return menuItems.find(item => item.path === '/about');
+  }
+  if (currentPath.startsWith('/projects/')) {
+    return menuItems.find(item => item.path === '/projects');
   }
   
   // Default to first item if no match
@@ -75,8 +89,12 @@ const getCurrentMenuItem = () => {
   <div class="mobile-menu-items">
     {menuItems.map((item) => (
       <a 
-        href={item.path}
-        class={currentPath === item.path || (item.path === '/work_experience' && currentPath.startsWith('/work_experience/')) ? 'active' : ''}
+        href={`${item.path}#main-area`}
+        class={currentPath === item.path || 
+               (item.path === '/work_experience' && currentPath.startsWith('/work_experience/')) ||
+               (item.path === '/education' && currentPath.startsWith('/education/')) ||
+               (item.path === '/about' && currentPath.startsWith('/about/')) ||
+               (item.path === '/projects' && currentPath.startsWith('/projects/')) ? 'active' : ''}
         data-astro-reload={false}
         data-astro-prefetch
       >
@@ -93,7 +111,7 @@ const getCurrentMenuItem = () => {
 <div class="site-header">
   {menuItems.map((item) => (
     <a 
-      href={item.path}
+      href={`${item.path}#main-area`}
       data-astro-reload={false}
       data-astro-prefetch
     >

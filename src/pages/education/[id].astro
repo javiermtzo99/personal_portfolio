@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const educationEntries = await getCollection('education');
+    
+    return educationEntries.map(entry => ({
+        params: { id: entry.slug },
+        props: { entry }
+    }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { degree, school, minor, location, logo } = data;
+
+const { Content } = await render(entry);
+---
+
+<Layout title={`Education - ${school}`}>
+    <div class="individual-education-exp">
+        <a href="/education">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="individual-education-exp-title">
+            <div class="card-icon">
+                <img transition:name={`img-${entry.slug}`} src={logo} alt={`${school} Logo`}>
+            </div>
+            <h2 transition:name={`school-${entry.slug}`}>{school}</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="individual-education-exp-info">
+        <h3>{degree}</h3>
+        <h4>{minor ? `Minor in ${minor}` : ''}</h4>
+        <p>{location}</p>
+    </div>
+    <div class="individual-content">
+        <Content />
+    </div>
+</Layout>

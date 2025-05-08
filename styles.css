@@ -603,7 +603,8 @@
     color: #a6a6a6;
   }
 
-  .individual-work-exp {
+  .individual-work-exp,
+  .individual-education-exp {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -617,7 +618,23 @@
     gap: 0rem;
   }
 
-  .individual-work-exp .fa-chevron-left {
+  .individual-education-exp-title {
+    display: flex;
+    align-items: center;
+    gap: 0rem;
+  }
+
+  .individual-education-exp-title h2 {
+    font-size: 36px;
+  }
+
+  .individual-education-exp .card-icon img {
+    height: 50px;
+    filter: invert(80%) sepia(0%) saturate(0%) hue-rotate(137deg) brightness(82%) contrast(90%);
+  }
+
+  .individual-work-exp .fa-chevron-left,
+  .individual-education-exp .fa-chevron-left {
     font-size: 2rem;
     cursor: pointer;
     color: #a6a6a6;
@@ -629,11 +646,14 @@
     filter: invert(80%) sepia(0%) saturate(0%) hue-rotate(137deg) brightness(82%) contrast(90%);
   }
 
-  .individual-work-exp-info h3{
+  .individual-work-exp-info h3,
+  .individual-education-exp-info h3,
+  .individual-education-exp-info h4 {
     text-align: right;
   }
 
- .individual-work-exp-info p {
+ .individual-work-exp-info p,
+ .individual-education-exp-info p {
     text-align: right;
     color: #a6a6a6;
   }
@@ -711,7 +731,11 @@
   
     .form-group {
       margin-bottom: 29px;
-  }
+    }
+
+    .individual-education-exp-title h2 {
+      font-size: 28px;
+    }
   }
   
   /* ------------------------------------------------------
@@ -879,5 +903,9 @@
 
     .project-content-all-cards {
       gap: 20px;
+    }
+
+    .individual-education-exp-title h2 {
+      font-size: 22px;
     }
   }

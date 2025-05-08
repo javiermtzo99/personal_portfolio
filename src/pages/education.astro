@@ -1,19 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Modal from '../components/Modal.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 interface Entry {
   data: CollectionEntry<'education'>['data'];
-  Content: any;
+  slug: string;
 }
 
 const raw = await getCollection('education');
 const entries: Entry[] = await Promise.all(
   raw.map(async entry => {
-    const { Content } = await render(entry);
-    return { data: entry.data, Content };
+    return { data: entry.data, slug: entry.slug };
   })
 );
 
@@ -22,32 +20,27 @@ entries.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
 
 <Layout>
-  <!-- single global Modal instance -->
-  <Modal title="" icon={entries[0]?.data.logo} />
 
   <div class="education">
     <h2>Education</h2>
     <hr />
 
     {entries.map(entry => {
-      const { data, Content } = entry;
+      const { data } = entry;
       return (
-        <div class="timeline-card">
-          <!-- hidden MD content for the modal -->
-          <div class="hidden-content" style="display:none;">
-            <Content />
+        <a href={`/education/${entry.slug}`}>
+          <div class="timeline-card">
+            <div class="card-icon">
+              <img transition:name={`img-${entry.slug}`} src={data.logo} alt={`${data.school} Logo`} />
+            </div>
+            <div class="card-content">
+              <h4>{data.degree}</h4>
+              <h3 transition:name={`school-${entry.slug}`}>{data.school}</h3>
+              {data.minor && <h5>Minor in {data.minor}</h5>}
+              <p>{data.location}</p>
+            </div>
           </div>
-
-          <div class="card-icon">
-            <img src={data.logo} alt={`${data.school} Logo`} />
-          </div>
-          <div class="card-content">
-            <h4>{data.degree}</h4>
-            <h3>{data.school}</h3>
-            {data.minor && <h5>Minor in {data.minor}</h5>}
-            <p>{data.location}</p>
-          </div>
-        </div>
+        </a>
       );
     })}
   </div>
