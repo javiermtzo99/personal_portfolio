@@ -1,8 +1,10 @@
 ---
-import { fade } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
+
 import Sidebar from '../components/Sidebar.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
 const { pathname } = Astro.url;
 ---
 
@@ -29,6 +31,7 @@ const { pathname } = Astro.url;
     >
 
     <!-- Global CSS -->
+    <ClientRouter />
     <link rel="stylesheet" href="/styles.css" />
   </head>
 
@@ -43,11 +46,7 @@ const { pathname } = Astro.url;
         <Header currentPath={pathname} />
 
         <!-- Page Content (slot) -->
-        <div 
-          class="content" 
-          transition:animate={fade({ duration: '0.2s' })} 
-          transition:persist
-        >
+        <div class="content">
           <slot />
         </div>
       </div>

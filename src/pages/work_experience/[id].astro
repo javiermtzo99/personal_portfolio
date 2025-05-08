@@ -25,9 +25,9 @@ const { Content } = await render(entry);
         </a>
         <div class="individual-work-exp-title">
             <div class="card-icon">
-                <img src={logo} alt={`${company} Logo`}>
+                <img transition:name={`img-${entry.slug}`} src={logo} alt={`${company} Logo`}>
             </div>
-            <h2>{company}</h2>
+            <h2 transition:name={`company-${entry.slug}`}>{company}</h2>
         </div>
     </div>
     <hr />

@@ -28,11 +28,11 @@ entries.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
     {entries.map((entry) => (
       <div class="timeline-card">
         <div class="card-icon">
-          <img src={entry.data.logo} alt={`${entry.data.company} Logo`}>
+          <img transition:name={`img-${entry.slug}`} src={entry.data.logo} alt={`${entry.data.company} Logo`}>
         </div>
         <a href={`/work_experience/${entry.slug}`}>
           <div class="card-content">
-            <h4>{entry.data.company}</h4>
+            <h4 transition:name={`company-${entry.slug}`}>{entry.data.company}</h4>
             <h3>{entry.data.position}</h3>
             <h5>{entry.data.period}</h5>
             <p>{entry.data.type}</p>
