@@ -452,6 +452,13 @@
     line-height: 1.5;
     flex-grow: 1;
   }
+
+  .about-content .bio p {
+    font-size: 18px;
+    color: #C9C9C9;
+    margin: 10px 0;
+    line-height: 1.5;
+  }
   
   .project-categories {
     display: flex;
@@ -733,7 +740,8 @@
       margin-bottom: 29px;
     }
 
-    .individual-education-exp-title h2 {
+    .individual-education-exp-title h2,
+    .individual-work-exp-title h2 {
       font-size: 28px;
     }
   }
@@ -905,7 +913,8 @@
       gap: 20px;
     }
 
-    .individual-education-exp-title h2 {
+    .individual-education-exp-title h2,
+    .individual-work-exp-title h2 {
       font-size: 22px;
     }
   }

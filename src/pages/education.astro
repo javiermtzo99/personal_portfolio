@@ -28,7 +28,7 @@ entries.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
     {entries.map(entry => {
       const { data } = entry;
       return (
-        <a href={`/education/${entry.slug}`}>
+        <a href={`/education/${entry.slug}#main-area`}>
           <div class="timeline-card">
             <div class="card-icon">
               <img transition:name={`img-${entry.slug}`} src={data.logo} alt={`${data.school} Logo`} />

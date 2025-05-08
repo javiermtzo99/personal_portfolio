@@ -3,9 +3,9 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-    const educationEntries = await getCollection('education');
+    const projectsEntries = await getCollection('personal-projects');
     
-    return educationEntries.map(entry => ({
+    return projectsEntries.map(entry => ({
         params: { id: entry.slug },
         props: { entry }
     }));
@@ -13,28 +13,23 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { data } = entry;
-const { degree, school, minor, location, logo } = data;
+const { title, date, description, image, categories } = data;
 
 const { Content } = await render(entry);
 ---
 
-<Layout title={`Education - ${school}`}>
+<Layout title={`Project - ${title}`}>
     <div class="individual-education-exp">
-        <a href="/education#main-area">
+        <a href="/projects#main-area">
             <i class="fa-solid fa-chevron-left"></i>
         </a>
         <div class="individual-education-exp-title">
-            <div class="card-icon">
-                <img transition:name={`img-${entry.slug}`} src={logo} alt={`${school} Logo`}>
-            </div>
-            <h2 transition:name={`school-${entry.slug}`}>{school}</h2>
+            <h2 transition:name={`title-${entry.slug}`}>{title}</h2>
         </div>
     </div>
     <hr />
     <div class="individual-education-exp-info">
-        <h3>{degree}</h3>
-        <h4>{minor ? `Minor in ${minor}` : ''}</h4>
-        <p>{location}</p>
+        <p>{date}</p>
     </div>
     <div class="individual-content">
         <Content />

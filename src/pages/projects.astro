@@ -1,19 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Modal from '../components/Modal.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 interface Entry {
   data: CollectionEntry<'personal-projects'>['data'];
-  Content: any;
+  slug: string;
 }
 
 const raw = await getCollection('personal-projects');
 const entries: Entry[] = await Promise.all(
   raw.map(async entry => {
-    const { Content } = await render(entry);
-    return { data: entry.data, Content };
+    return { data: entry.data, slug: entry.slug };
   })
 );
 
@@ -22,35 +20,28 @@ entries.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
 
 <Layout>
-  <Modal title="" />
   <div class="projects">
     <h2>Personal Projects</h2>
     <hr />
     <div class="project-content-all-cards">
       {entries.map((entry) => (
-      // 'entry.data' holds frontmatter fields
-      // 'entry.body' holds the markdown body
-      // 'entry.id' or 'entry.slug' for unique key
-
-        <div class="project-content-card">
-          <!-- hidden MD content for the modal -->
-          <div class="hidden-content" style="display:none;">
-            <entry.Content />
-          </div>
-          <div class="card-img">
-            <img src={entry.data.image} alt={entry.data.title} />
-          </div>
-          <div class="project-card-content">
-            <h3>{entry.data.title}</h3>
-            <h4>{entry.data.date}</h4>
-            <p>{entry.data.description}</p>
-            <div class="project-categories">
-              {entry.data.categories.map((category: {name: string, class: string}) => (
-                <span class={`category ${category.class}`}>{category.name}</span>
-              ))}
+        <a href={`/projects/${entry.slug}#main-area`}>
+          <div class="project-content-card">
+            <div class="card-img">
+              <img src={entry.data.image} alt={entry.data.title} />
+            </div>
+            <div class="project-card-content">
+              <h3 transition:name={`title-${entry.slug}`}>{entry.data.title}</h3>
+              <h4>{entry.data.date}</h4>
+              <p>{entry.data.description}</p>
+              <div class="project-categories">
+                {entry.data.categories.map((category: {name: string, class: string}) => (
+                  <span class={`category ${category.class}`}>{category.name}</span>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   </div>

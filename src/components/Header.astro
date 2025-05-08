@@ -50,27 +50,45 @@ const getCurrentMenuItem = () => {
 ---
 
 <script>
-  let isOpen = false;
-  const dropdown = document.querySelector('.dropdown-menu');
-  const mobileMenuItems = document.querySelector('.mobile-menu-items');
-  const menuArrow = document.querySelector('.menu-arrow i');
+  // Use a function that can be called on page load and after navigation
+  function setupMobileMenu() {
+    let isOpen = false;
+    const dropdown = document.querySelector('.dropdown-menu');
+    const mobileMenuItems = document.querySelector('.mobile-menu-items');
+    const menuArrow = document.querySelector('.menu-arrow i');
 
-  function toggleDropdown() {
-    isOpen = !isOpen;
-    if (mobileMenuItems) {
-      mobileMenuItems.classList.toggle('show');
-    }
-    if (menuArrow) {
-      menuArrow.classList.replace(
-        `fa-chevron-${isOpen ? 'down' : 'up'}`,
-        `fa-chevron-${isOpen ? 'up' : 'down'}`
-      );
+    // Remove any existing event listeners first to prevent duplicates
+    if (dropdown) {
+      dropdown.replaceWith(dropdown.cloneNode(true));
+      const newDropdown = document.querySelector('.dropdown-menu');
+      
+      function toggleDropdown() {
+        isOpen = !isOpen;
+        if (mobileMenuItems) {
+          mobileMenuItems.classList.toggle('show');
+        }
+        if (menuArrow) {
+          menuArrow.classList.replace(
+            `fa-chevron-${isOpen ? 'down' : 'up'}`,
+            `fa-chevron-${isOpen ? 'up' : 'down'}`
+          );
+        }
+      }
+
+      if (newDropdown) {
+        newDropdown.addEventListener('click', toggleDropdown);
+      }
     }
   }
 
-  if (dropdown) {
-    dropdown.addEventListener('click', toggleDropdown);
-  }
+  // Setup on initial page load
+  document.addEventListener('DOMContentLoaded', setupMobileMenu);
+  
+  // Setup after Astro page transitions
+  document.addEventListener('astro:page-load', setupMobileMenu);
+  
+  // Initial setup for the current page
+  setupMobileMenu();
 </script>
 
 {/* Mobile Header */}
@@ -112,8 +130,6 @@ const getCurrentMenuItem = () => {
   {menuItems.map((item) => (
     <a 
       href={`${item.path}#main-area`}
-      data-astro-reload={false}
-      data-astro-prefetch
     >
       <div class={getClassNameFor(item.path)}>
         <div class="header-icon">
