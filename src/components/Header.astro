@@ -10,11 +10,28 @@ const menuItems = [
 ];
 
 function getClassNameFor(path: string) {
+  // Check if the current path starts with the menu item path
+  // This handles both exact matches and dynamic routes like /work_experience/[id]
+  if (path === '/work_experience' && currentPath.startsWith('/work_experience/')) {
+    return 'header-section active';
+  }
+  
+  // For other sections, use exact match
   return currentPath === path ? 'header-section active' : 'header-section';
 }
 
 const getCurrentMenuItem = () => {
-  return menuItems.find(item => item.path === currentPath) || menuItems[0];
+  // First check for exact match
+  const exactMatch = menuItems.find(item => item.path === currentPath);
+  if (exactMatch) return exactMatch;
+  
+  // Check for dynamic routes
+  if (currentPath.startsWith('/work_experience/')) {
+    return menuItems.find(item => item.path === '/work_experience');
+  }
+  
+  // Default to first item if no match
+  return menuItems[0];
 };
 ---
 
@@ -26,14 +43,20 @@ const getCurrentMenuItem = () => {
 
   function toggleDropdown() {
     isOpen = !isOpen;
-    mobileMenuItems?.classList.toggle('show');
-    menuArrow?.classList.replace(
-      `fa-chevron-${isOpen ? 'down' : 'up'}`,
-      `fa-chevron-${isOpen ? 'up' : 'down'}`
-    );
+    if (mobileMenuItems) {
+      mobileMenuItems.classList.toggle('show');
+    }
+    if (menuArrow) {
+      menuArrow.classList.replace(
+        `fa-chevron-${isOpen ? 'down' : 'up'}`,
+        `fa-chevron-${isOpen ? 'up' : 'down'}`
+      );
+    }
   }
 
-  dropdown?.addEventListener('click', toggleDropdown);
+  if (dropdown) {
+    dropdown.addEventListener('click', toggleDropdown);
+  }
 </script>
 
 {/* Mobile Header */}
@@ -41,9 +64,9 @@ const getCurrentMenuItem = () => {
   <div class="dropdown-menu">
     <div class="menu-content">
       <div class="menu-icon">
-        <i class={`fa-solid ${getCurrentMenuItem().icon}`}></i>
+        <i class={`fa-solid ${getCurrentMenuItem()?.icon || 'fa-home'}`}></i>
       </div>
-      <div class="menu-text">{getCurrentMenuItem().text}</div>
+      <div class="menu-text">{getCurrentMenuItem()?.text || 'Menu'}</div>
     </div>
     <div class="menu-arrow">
       <i class="fa-solid fa-chevron-down"></i>
@@ -53,7 +76,7 @@ const getCurrentMenuItem = () => {
     {menuItems.map((item) => (
       <a 
         href={item.path}
-        class={currentPath === item.path ? 'active' : ''}
+        class={currentPath === item.path || (item.path === '/work_experience' && currentPath.startsWith('/work_experience/')) ? 'active' : ''}
         data-astro-reload={false}
         data-astro-prefetch
       >

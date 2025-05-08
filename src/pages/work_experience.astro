@@ -1,19 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Modal from '../components/Modal.astro';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 interface Entry {
   data: CollectionEntry<'work-experience'>['data'];
   Content: any;
+  slug: string;
 }
 
 const raw = await getCollection('work-experience');
 const entries: Entry[] = await Promise.all(
   raw.map(async entry => {
     const { Content } = await render(entry);
-    return { data: entry.data, Content };
+    return { data: entry.data, Content, slug: entry.slug };
   })
 );
 
@@ -22,29 +22,22 @@ entries.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
 
 <Layout>
-  <Modal title="" icon={entries[0]?.data.logo} />
   <div class="work-exp">
     <h2>Work Experience</h2>
     <hr />
     {entries.map((entry) => (
-      // 'entry.data' holds frontmatter fields
-      // 'entry.body' holds the markdown body
-      // 'entry.id' or 'entry.slug' for unique key
-
       <div class="timeline-card">
-        <!-- hidden MD content for the modal -->
-        <div class="hidden-content" style="display:none;">
-          <entry.Content />
-        </div>
         <div class="card-icon">
           <img src={entry.data.logo} alt={`${entry.data.company} Logo`}>
         </div>
-        <div class="card-content">
-          <h4>{entry.data.company}</h4>
-          <h3>{entry.data.position}</h3>
-          <h5>{entry.data.period}</h5>
-          <p>{entry.data.type}</p>
-        </div>
+        <a href={`/work_experience/${entry.slug}`}>
+          <div class="card-content">
+            <h4>{entry.data.company}</h4>
+            <h3>{entry.data.position}</h3>
+            <h5>{entry.data.period}</h5>
+            <p>{entry.data.type}</p>
+          </div>
+        </a>
       </div>
     ))}
   </div>

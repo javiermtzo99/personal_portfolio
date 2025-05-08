@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const workExperienceEntries = await getCollection('work-experience');
+    
+    return workExperienceEntries.map(entry => ({
+        params: { id: entry.slug },
+        props: { entry }
+    }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { company, position, period, type, logo } = data;
+
+const { Content } = await render(entry);
+---
+
+<Layout title={`Work Experience - ${company}`}>
+    <div class="individual-work-exp">
+        <a href="/work_experience">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="individual-work-exp-title">
+            <div class="card-icon">
+                <img src={logo} alt={`${company} Logo`}>
+            </div>
+            <h2>{company}</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="individual-work-exp-info">
+        <h3>{position}</h3>
+        <p>{period} • {type}</p>
+    </div>
+    <div class="individual-content">
+        <Content />
+    </div>
+</Layout>

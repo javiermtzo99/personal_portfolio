@@ -7,7 +7,7 @@ logo: "/kuona.svg"
 order: 2
 ---
 
-Kuona is a SaaS platform utilizing deep learning techniques to optimize product pricing, promotions, and inventory management for multinational companies in the USA, Latin America and Europe. During my tenure here, I contributed to the following projects:
+Kuona is a Software as a Service platform utilizing deep learning techniques to optimize product pricing, promotions, and inventory management for multinational companies in the USA, Latin America and Europe. During my tenure here, I contributed to the following projects:
 
 **Promotions.** Solutions for analyzing promotion outcomes (post-mortem) and predicting future promotional performance.
 - Participated in migrating ETL processes from PostgreSQL and Django commands on Lambda to a Data Warehouse architecture using Glue Catalog, Spark jobs and a Medallion architecture with S3 buckets (bronze, silver, gold), orchestrated via Airflow. This migration improved execution time by up to 70% and reduced costs by approximately 30%.
