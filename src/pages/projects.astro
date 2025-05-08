@@ -16,6 +16,9 @@ const entries: Entry[] = await Promise.all(
     return { data: entry.data, Content };
   })
 );
+
+// Sort entries by order
+entries.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
 
 <Layout>

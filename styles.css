@@ -318,8 +318,8 @@
     justify-content: center;
     align-items: center;
     background-color: #1F1F1F;
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     border-radius: 12px;
   }
   
@@ -575,7 +575,7 @@
   }
 
   .modal-header .card-icon img {
-    height: 60px;
+    height: 70px;
     filter: invert(80%) sepia(0%) saturate(0%) hue-rotate(137deg) brightness(82%) contrast(90%);
     display: none;
   }

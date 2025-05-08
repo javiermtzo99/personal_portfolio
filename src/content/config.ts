@@ -7,6 +7,7 @@ const education = defineCollection({
     minor: z.string(),
     location: z.string(),
     logo: z.string(),
+    order: z.number().optional(),
   }),
 });
 
@@ -17,6 +18,7 @@ const workExperience = defineCollection({
     period: z.string(),
     type: z.string(),
     logo: z.string(),
+    order: z.number().optional(),
   }),
 });
 
@@ -26,6 +28,7 @@ const personalProjects = defineCollection({
     date: z.string(),
     description: z.string(),
     image: z.string(),
+    order: z.number().optional(),
     categories: z.array(
       z.object({
         name: z.string(),
