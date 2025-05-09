@@ -16,7 +16,8 @@ function getClassNameFor(path: string) {
     (path === '/work_experience' && currentPath.startsWith('/work_experience/')) ||
     (path === '/education' && currentPath.startsWith('/education/')) ||
     (path === '/about' && currentPath.startsWith('/about/')) ||
-    (path === '/projects' && currentPath.startsWith('/projects/'))
+    (path === '/projects' && currentPath.startsWith('/projects/')) ||
+    (path === '/contact' && currentPath.startsWith('/contact/'))
   ) {
     return 'header-section active';
   }
@@ -42,6 +43,9 @@ const getCurrentMenuItem = () => {
   }
   if (currentPath.startsWith('/projects/')) {
     return menuItems.find(item => item.path === '/projects');
+  }
+  if (currentPath.startsWith('/contact/')) {
+    return menuItems.find(item => item.path === '/contact');
   }
   
   // Default to first item if no match
@@ -112,7 +116,8 @@ const getCurrentMenuItem = () => {
                (item.path === '/work_experience' && currentPath.startsWith('/work_experience/')) ||
                (item.path === '/education' && currentPath.startsWith('/education/')) ||
                (item.path === '/about' && currentPath.startsWith('/about/')) ||
-               (item.path === '/projects' && currentPath.startsWith('/projects/')) ? 'active' : ''}
+               (item.path === '/projects' && currentPath.startsWith('/projects/')) ||
+               (item.path === '/contact' && currentPath.startsWith('/contact/')) ? 'active' : ''}
         data-astro-reload={false}
         data-astro-prefetch
       >
