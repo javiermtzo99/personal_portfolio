@@ -832,15 +832,25 @@
 
     .dropdown-menu {
       display: flex;
+      color: #fff;
       justify-content: space-between;
       align-items: center;
       background-color: #202425;
-      color: #fff;
-      padding: 12px 20px;
+      padding: 15px 20px;
       border-radius: 5px;
-      width: 100%;
       cursor: pointer;
-      transition: all 0.3s ease;
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    
+    .dropdown-menu:hover {
+      background-color: #2a2e2f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .menu-arrow i {
+      transition: transform 0.3s ease;
     }
 
     .dropdown-menu.active {
@@ -856,7 +866,6 @@
     }
 
     .mobile-menu-items {
-      display: none;
       position: absolute;
       top: 100%;
       left: 0;
@@ -866,6 +875,9 @@
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       z-index: 10;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
     }
 
     .mobile-menu-item {
@@ -875,14 +887,30 @@
       padding: 12px 20px;
       color: #fff;
       transition: all 0.3s ease;
+      transform: translateX(-20px);
+      opacity: 0;
     }
+    
+    .mobile-menu-items.show .mobile-menu-item {
+      transform: translateX(0);
+      opacity: 1;
+      transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Staggered animation for menu items */
+    .mobile-menu-items.show a:nth-child(1) .mobile-menu-item { transition-delay: 0.05s; }
+    .mobile-menu-items.show a:nth-child(2) .mobile-menu-item { transition-delay: 0.1s; }
+    .mobile-menu-items.show a:nth-child(3) .mobile-menu-item { transition-delay: 0.15s; }
+    .mobile-menu-items.show a:nth-child(4) .mobile-menu-item { transition-delay: 0.2s; }
+    .mobile-menu-items.show a:nth-child(5) .mobile-menu-item { transition-delay: 0.25s; }
 
     .mobile-menu-items a {
       display: block;
     }
 
     .mobile-menu-items.show {
-      display: block;
+      max-height: 500px; /* Adjust based on your menu height */
+      opacity: 1;
     }
 
     .mobile-menu-items a.active .mobile-menu-item,
