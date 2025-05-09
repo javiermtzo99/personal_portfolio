@@ -458,6 +458,7 @@
     color: #C9C9C9;
     margin: 10px 0;
     line-height: 1.5;
+    margin-block: 1lh;
   }
   
   .project-categories {
@@ -555,6 +556,27 @@
   }
 
   /* Modal Styles */
+  /* Modal animation keyframes */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes scaleIn {
+    from { transform: scale(0.9); }
+    to { transform: scale(1); }
+  }
+
+  @keyframes scaleOut {
+    from { transform: scale(1); }
+    to { transform: scale(0.9); }
+  }
+
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -566,6 +588,8 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
   }
 
   .modal {
@@ -577,6 +601,9 @@
     height: 600px;
     overflow-y: auto;
     position: relative;
+    transform: scale(0.9);
+    animation: scaleIn 0.3s ease-out forwards;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
   .modal-header {
@@ -674,6 +701,7 @@
   .individual-content li {
     line-height: 1.6;
     margin-top: 1.2em;
+    margin-block: 1lh;
   }
     
 

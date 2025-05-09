@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface ModalData {
   title: string;
@@ -19,12 +19,16 @@ interface Config {
 
 const ModalContent: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [data, setData] = useState<ModalData>({
     title: '',
     bodyHtml: '',
     iconClass: '',
     type: 'about'
   });
+  
+  // Reference to the modal overlay element
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // define which card‐selectors to listen on, and how to pull title/icon
@@ -58,7 +62,7 @@ const ModalContent: React.FC = () => {
     // clicking the backdrop closes
     const onBackdrop = (e: MouseEvent) => {
       if ((e.target as HTMLElement).id === 'modal-root') {
-        setOpen(false);
+        closeModal();
       }
     };
     document.addEventListener('click', onBackdrop);
@@ -72,19 +76,45 @@ const ModalContent: React.FC = () => {
 
   // escape key to close
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && closeModal();
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
+  
+  // Handle closing animation
+  const closeModal = () => {
+    if (isClosing) return; // Prevent multiple close calls
+    
+    setIsClosing(true);
+    
+    // Add closing animation classes
+    if (modalRef.current) {
+      modalRef.current.style.animation = 'fadeOut 0.3s ease-out forwards';
+      const modalElement = modalRef.current.querySelector('.modal') as HTMLElement;
+      if (modalElement) {
+        modalElement.style.animation = 'scaleOut 0.3s ease-out forwards';
+      }
+    }
+    
+    // Wait for animation to complete before removing from DOM
+    setTimeout(() => {
+      setOpen(false);
+      setIsClosing(false);
+    }, 300); // Match animation duration
+  };
 
   if (!open) return null;
 
   return (
-    <div id="modal-root" className={`modal-overlay ${open ? '' : 'hidden'}`} onClick={(e) => {
-      if ((e.target as HTMLElement).id === 'modal-root') {
-        setOpen(false);
-      }
-    }}>
+    <div 
+      id="modal-root" 
+      className={`modal-overlay ${isClosing ? 'closing' : ''}`} 
+      ref={modalRef}
+      onClick={(e) => {
+        if ((e.target as HTMLElement).id === 'modal-root') {
+          closeModal();
+        }
+      }}>
       <div className="modal">
         <div className="modal-header" data-type={data.type}>
           <div className="header-left">
@@ -99,9 +129,9 @@ const ModalContent: React.FC = () => {
             )}
             <h2>{data.title}</h2>
           </div>
-          <button className="close-button" onClick={() => setOpen(false)}>&times;</button>
+          <button className="close-button" onClick={closeModal}>&times;</button>
         </div>
-        <div className="modal-content" data-type={data.type} dangerouslySetInnerHTML={{ __html: data.bodyHtml }} />
+        <div className="individual-content" data-type={data.type} dangerouslySetInnerHTML={{ __html: data.bodyHtml }} />
       </div>
     </div>
   );
