@@ -205,12 +205,15 @@
     margin: 5px 20px 0 20px;
     border-radius: 12px;
     color: #a6a6a6;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   }
   
   .social-links i:hover {
     background: linear-gradient(97deg, #E8A222 0%, #BE294D 100%);
     color: #fff;
     cursor: pointer;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 20px rgba(190, 41, 77, 0.2);
   }
   
   .person-contact {
