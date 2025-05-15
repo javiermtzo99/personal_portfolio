@@ -5,10 +5,10 @@ description: "Smart Search is a semantic search bar integrated into the Canvas D
 image: "/smart_search.png"
 order: 1
 categories:
-  - name: "Software Engineering"
-    class: "category-web"
   - name: "Machine Learning"
     class: "category-ml"
+  - name: "Software Engineering"
+    class: "category-web"
 ---
 
 # Smart-SearchEmpty for now. This will be shown in the modal.
