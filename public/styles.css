@@ -609,6 +609,25 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
+  /* Modal Scrollbar Styles */
+  .modal::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .modal::-webkit-scrollbar-track {
+    background: #1F1F1F;
+    border-radius: 10px;
+  }
+
+  .modal::-webkit-scrollbar-thumb {
+    background: #a6a6a6;
+    border-radius: 10px;
+  }
+
+  .modal::-webkit-scrollbar-thumb:hover {
+    background: #a6a6a6;
+  }
+
   .modal-header {
     display: flex;
     justify-content: space-between;

@@ -4,7 +4,6 @@ order: 1
 icon: fas fa-database
 short: Building modern big data pipelines and workflows.
 ---
-
 With more than two years of experience in data engineering, I build modern big-data pipelines and workflows with a wide range of technologies.
 
 My background includes:
