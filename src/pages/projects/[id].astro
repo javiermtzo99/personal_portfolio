@@ -50,12 +50,6 @@ const { Content } = await render(entry);
         )}
     </div>
     
-    {image && (
-        <div class="project-image">
-            <img transition:name={`img-${entry.slug}`} src={image} alt={title} />
-        </div>
-    )}
-    
     <div class="individual-content">
         <Content />
     </div>

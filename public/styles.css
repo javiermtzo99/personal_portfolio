@@ -406,6 +406,9 @@
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 450px; /* Fixed height for all cards */
+    display: flex;
+    flex-direction: column;
   }
   
   .project-content-card:hover {
@@ -417,19 +420,22 @@
     height: 200px;
     width: 100%;
     overflow: hidden;
+    flex-shrink: 0;
   }
   
   .project-content-card .card-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top; /* Display image from the top */
   }
   
   .project-card-content {
     padding: 16px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 200px); /* Subtract image height */
+    flex: 1;
+    overflow: hidden;
   }
   
   .project-content-card h3 {
@@ -454,6 +460,12 @@
     font-size: 14px;
     line-height: 1.5;
     flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .about-content .bio p {
@@ -468,6 +480,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-top: auto;
   }
   
   .project-categories .category {
