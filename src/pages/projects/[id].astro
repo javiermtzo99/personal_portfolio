@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { data } = entry;
-const { title, date, description, image, categories } = data;
+const { title, date, description, image, categories, githubUrl } = data;
 
 const { Content } = await render(entry);
 ---
@@ -31,6 +31,31 @@ const { Content } = await render(entry);
     <div class="individual-education-exp-info">
         <p>{date}</p>
     </div>
+    
+    <div class="project-meta-container">
+        {githubUrl && (
+            <div class="github-link">
+                <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="github-button">
+                    <i class="fab fa-github"></i> GitHub Repo
+                </a>
+            </div>
+        )}
+        
+        {categories && categories.length > 0 && (
+            <div class="project-categories">
+                {categories.map((category: {name: string, class: string}) => (
+                    <span class={`category ${category.class}`}>{category.name}</span>
+                ))}
+            </div>
+        )}
+    </div>
+    
+    {image && (
+        <div class="project-image">
+            <img transition:name={`img-${entry.slug}`} src={image} alt={title} />
+        </div>
+    )}
+    
     <div class="individual-content">
         <Content />
     </div>

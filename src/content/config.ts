@@ -28,6 +28,7 @@ const personalProjects = defineCollection({
     date: z.string(),
     description: z.string(),
     image: z.string(),
+    githubUrl: z.string().optional(),
     order: z.number().optional(),
     categories: z.array(
       z.object({

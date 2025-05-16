@@ -28,7 +28,7 @@ entries.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
         <a href={`/projects/${entry.slug}#main-area`}>
           <div class="project-content-card">
             <div class="card-img">
-              <img src={entry.data.image} alt={entry.data.title} />
+              <img transition:name={`img-${entry.slug}`} src={entry.data.image} alt={entry.data.title} />
             </div>
             <div class="project-card-content">
               <h3 transition:name={`title-${entry.slug}`}>{entry.data.title}</h3>
