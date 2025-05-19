@@ -1,7 +1,7 @@
 ---
 title: "Diabetes Predictor"
 date: "November, 2024"
-description: "A reproduciible report from a classification model using the Pima Indians Diabetes dataset from Kaggle"
+description: "A reproducible report from a classification model using the Pima Indians Diabetes dataset from Kaggle"
 image: "/diabetes_predictor.jpg"
 githubUrl: "https://github.com/UBC-MDS/diabetes_predictor_py"
 order: 3
