@@ -8,7 +8,7 @@ My software‑engineering background rounds out my data skill set, letting me de
 
 Key strengths
 - Full‑stack development: modern web/mobile apps and APIs (REST, GraphQL, Webhooks) with React/React native, Astro, and Next.js on the front-end, paired with Django, Node.js and FastAPI on the back-end
-- Engineering fundamentals: solid grounding in data structures & algorithms, software‑design patterns, and agile methodologies
+- Engineering fundamentals: solid grounding in data structures & algorithms, software‑design patterns and agile methodologies
 - Quality & reliability: comprehensive testing strategies, CI/CD pipelines, and automated deployments for rapid yet safe iteration
 - Operations: microservices architecture and Docker‑based containerization for scalable, maintainable services
 - Lifecycle stewardship: clear documentation, observability, and structured maintenance processes that keep applications healthy in production

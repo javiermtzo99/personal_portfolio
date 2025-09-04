@@ -4,7 +4,7 @@ position: "Data Engineer"
 period: "June 2022 - August 2024"
 type: "Full time"
 logo: "/kuona.svg"
-order: 2
+order: 3
 ---
 
 **Kuona** is a Software as a Service platform utilizing deep learning techniques to optimize product pricing, promotions and inventory management for multinational companies in the USA, Latin America and Europe. During my tenure here, I contributed to the following projects:
